@@ -39,7 +39,19 @@ class ViewController: UIViewController {
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
                     
+                    let rawMovieList = json["feed"]["entry"].arrayValue
                     
+                    let randomValue = Int(arc4random_uniform(UInt32(rawMovieList.count)))
+                    print(randomValue)
+                    
+                    let movie = Movie(json: rawMovieList[randomValue])
+                    
+                    self.movieTitleLabel.text = movie.name
+                    self.rightsOwnerLabel.text = movie.rightsOwner
+                    self.releaseDateLabel.text = movie.releaseDate
+                    self.priceLabel.text = String(movie.price)
+                    self.loadPoster(movie.poster)
+                    self.viewOniTunesPressed(movie.link)
                 }
             case .Failure(let error):
                 print(error)
@@ -58,7 +70,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func viewOniTunesPressed(sender: AnyObject) {
-        
+        UIApplication.sharedApplication().openURL(NSURL(string: String(sender))!)
     }
     
 }
