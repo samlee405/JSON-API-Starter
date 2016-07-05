@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
+    var link: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,7 @@ class ViewController: UIViewController {
                     self.releaseDateLabel.text = movie.releaseDate
                     self.priceLabel.text = String(movie.price)
                     self.loadPoster(movie.poster)
-                    self.viewOniTunesPressed(movie.link)
+                    self.link = movie.link
                 }
             case .Failure(let error):
                 print(error)
@@ -70,7 +71,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func viewOniTunesPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: String(sender))!)
+        print(link)
+        UIApplication.sharedApplication().openURL(NSURL(string: link)!)
     }
     
 }
